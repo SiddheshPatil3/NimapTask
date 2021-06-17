@@ -1,0 +1,134 @@
+header{
+    width: 100%;
+    height: 100%;
+}
+nav{
+    /* height: 80px; */
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+nav ul{
+    float: right;
+    margin-right: 20px;
+}
+nav ul li{
+
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+}
+nav a {
+    color: white;
+    font-size: 17px;
+    text-transform: uppercase;
+    font-weight: 900;
+    padding: 7px 13px;
+    border-radius: 3px;
+    position: relative;
+    text-decoration: none;
+}
+nav a:before{
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    border-bottom: 4px solid rgb(6, 117, 155);
+
+}
+nav a:hover:before{
+    width: 100%;
+}
+img{
+    width: 110px;
+}
+.look{
+    font-style: italic;
+    font-weight: 600;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: xxx-large;
+
+}
+.mid{
+    margin: 100px 10px 10px 10px;
+    padding: 10px;
+}
+.inp{
+    width: 90%;
+    height: 8vh;
+    margin: 10px 10px 10px 35px;
+    padding: 10px;
+    font-style:italic
+}
+.search{
+    margin: 10px;
+    padding: 10px;
+    width: 150px
+}
+.check{
+    color: white;
+    font-style:italic;
+    margin: 10px 10px 10px 25px;
+    padding: 10px;
+    font-weight: 500;
+}
+.drop{     
+    margin-right: 313px;
+    width: 250px;
+    height: 40px;
+    border-radius: 5px;
+
+}
+.register{
+    margin-top: 75px;
+
+}
+
+.relativeDiv{
+    position: relative;
+    width: 100%;
+}
+.part2{
+    background-color: rgb(245, 239, 245);
+}
+.lead{
+    font-style:italic;
+    margin: 100px 10px 10px 10px;
+    font-size: xx-large;
+    padding: 10px;
+}
+
+.dash{
+    background-color: rgb(6, 194, 228);
+    width: 150px;
+    height: 7px;
+    margin: 50px 0px 50px 600px;
+}
+.find{
+    margin: 50px;
+    padding: 10px;
+    font-weight: bold;
+}
+.Bgpart3{
+    background-color: rgb(4, 4, 27);
+    display: grid;
+}
+.sub{
+    margin: 200px 10px 20px 10px;
+    font-weight: bold;
+}
+.email{
+    width: 310px !important;
+    margin-left: 520px;
+    margin-bottom: 150px;
+}
+.foot{
+    display: grid;
+}
+

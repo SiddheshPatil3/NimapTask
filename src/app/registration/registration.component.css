@@ -1,0 +1,30 @@
+.bg1{
+    background-color: rgb(70, 40, 241);
+    height: 60px;
+}
+.register{
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.inputs{
+    margin: 8px;
+    padding: 8px;
+    /* border-radius: 1px; */
+    
+}
+.pad{
+    padding: 0% !important;
+}
+.drop{     
+    
+    margin: 10px;
+    width: 265px;
+    height: 40px;
+    border-radius: 2px;
+
+}
+.wid{
+    width: 268px;
+}
