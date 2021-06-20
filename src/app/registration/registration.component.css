@@ -1,7 +1,4 @@
-.bg1{
-    background-color: rgb(70, 40, 241);
-    height: 60px;
-}
+
 .register{
     margin-top: 20px;
     font-size: 16px;
@@ -14,17 +11,20 @@
     /* border-radius: 1px; */
     
 }
-.pad{
-    padding: 0% !important;
+.clsbtn{
+    border-radius: 50%;
+    /* padding: 0.3em; */
+    width: 30px;
+    height: 30px;
+    border: 2px solid blue;
+    color: blue;
+    position: relative;
 }
-.drop{     
-    
-    margin: 10px;
-    width: 265px;
-    height: 40px;
-    border-radius: 2px;
 
-}
 .wid{
     width: 268px;
+}
+.btns{
+    margin-left: 286px; 
+    height: 30px;
 }

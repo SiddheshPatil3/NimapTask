@@ -3,6 +3,8 @@ import { Router} from "@angular/router";
 import { RegistrationComponent } from '../registration/registration.component';
 // import {} from "@material/dialog";
 import {MatDialog} from '@angular/material/dialog';
+import { ProfileComponent } from "../profile/profile.component";
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,6 +22,10 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  gotoPage(pageName:string):void{
+    this.router.navigate([`${pageName}`]);
   }
  
 }

@@ -9,21 +9,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSliderModule} from '@angular/material/slider';
 import { MatCardModule} from '@angular/material/card';  
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './profile/profile.component';
 // import { MatDialogRef, MatDialog } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     MatDialogModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
     MatCardModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
     // MatDialogRef,
     // MatDialog
   ],

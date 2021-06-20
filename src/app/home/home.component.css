@@ -53,10 +53,12 @@ img{
     color: white;
     font-family: 'Courier New', Courier, monospace;
     font-size: xxx-large;
+    margin-top: 170px;
+    margin-left: 25px
 
 }
 .mid{
-    margin: 100px 10px 10px 10px;
+    /* margin: 100px 10px 10px 10px; */
     padding: 10px;
 }
 .inp{
