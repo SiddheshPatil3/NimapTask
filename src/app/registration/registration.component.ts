@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from "@angular/router";
 import {MatSliderModule} from '@angular/material/slider';
 import { MatDialogRef, MatDialog } from "@angular/material/dialog";
-import { FormBuilder, FormGroup} from "@angular/forms"
 import { RegistrationModel } from './registration.model';
 import { ApiService } from "../shared/api.service"
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DomSanitizer, } from '@angular/platform-browser';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -15,23 +15,20 @@ export class RegistrationComponent implements OnInit {
 
   myform:any;
   emp !:any;
-  
-  formValue !: FormGroup;
+  urlLink:string="assets/pic.jpg"
+
+  profileForm = new FormGroup({
+    firstName: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    lastName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    mobile: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+  });
   registrationModelObj : RegistrationModel = new RegistrationModel();
 
-  constructor(private router:Router, private api:ApiService, private formBuilder: FormBuilder, public MatDialogRef: MatDialogRef<RegistrationComponent>, private slider:MatSliderModule, private matDialog: MatDialog) { }
+  constructor(private router:Router,private _sanitizer: DomSanitizer, private api:ApiService, public MatDialogRef: MatDialogRef<RegistrationComponent>, private slider:MatSliderModule, private matDialog: MatDialog) { }
 
-  ngOnInit(): void {
-    this.formValue = this.formBuilder.group({
-      firstName : [''],
-      lastName : [''],
-      email : [''],
-      mobile : [''],
-      state : [''],
-      country : [''],
-      address : [''],
-      tag : [''],
-    })
+  ngOnInit(): void {   
   }
 
   Cancel() {
@@ -39,12 +36,13 @@ export class RegistrationComponent implements OnInit {
   }
 
   postRegistrion(){
-    this.registrationModelObj.firstname = this.formValue.value.firstName;
-    this.registrationModelObj.lastName = this.formValue.value.lastName;
-    this.registrationModelObj.email = this.formValue.value.email;
-    this.registrationModelObj.mobile = this.formValue.value.mobile;
-    this.registrationModelObj.address = this.formValue.value.address;
-    this.registrationModelObj.tag = this.formValue.value.tag;
+    this.registrationModelObj.firstname = this.profileForm.value.firstName;
+    this.registrationModelObj.lastName = this.profileForm.value.lastName;
+    this.registrationModelObj.email = this.profileForm.value.email;
+    this.registrationModelObj.mobile = this.profileForm.value.mobile;
+    this.registrationModelObj.address = this.profileForm.value.address;
+    // this.registrationModelObj.tag = this.formValue.value.tag;
+    this.registrationModelObj.img = this.urlLink;
 
     this.api.postRegisterData(this.registrationModelObj)
     .subscribe(res=>{
@@ -52,11 +50,41 @@ export class RegistrationComponent implements OnInit {
       alert("Registration Data Added Successfully");
       let ref = document.getElementById("cancel")
       ref?.click(); 
-      this.formValue.reset();
-      
+      this.profileForm.reset();
+      this.router.navigate(['/profile']).then( (e) => {
+        if (e) {
+          console.log("Navigation is successful!");
+        } else {
+          console.log("Navigation has failed!");
+        }
+      });
     },
     err=>{
       alert("Something Went Wrong")
     })
+
+    
   }
+
+  selectFile(event:any){
+    if(event.target.files){
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0])
+      reader.onload = (ev:any)=>{
+        this.urlLink = ev.srcElement.result;
+        console.log("result",event,ev);
+        
+      }
+    }
+  }
+  
+  get firstName() { return this.profileForm.get('firstName'); }
+  get lastName() { return this.profileForm.get('lastName'); }
+  get email() { return this.profileForm.get('email'); }
+  get mobile() { return this.profileForm.get('mobile'); }
+  get address() { return this.profileForm.get('address'); }
+
+  getImg(image:any) {
+    return this._sanitizer.bypassSecurityTrustUrl(image);
+}
 }

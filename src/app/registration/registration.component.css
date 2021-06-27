@@ -25,6 +25,14 @@
     width: 268px;
 }
 .btns{
-    margin-left: 286px; 
+    margin-left: 600px; 
     height: 30px;
+}
+.pic{
+    height: 100px;
+    width: 120px;
+    margin: 10px;
+}
+.valid{
+    color: red;
 }

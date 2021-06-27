@@ -4,6 +4,7 @@ import { ApiService } from "../shared/api.service";
 import {MatDialog} from '@angular/material/dialog';
 import { RegistrationComponent } from '../registration/registration.component';
 import { FormBuilder, FormGroup} from "@angular/forms"
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class ProfileComponent implements OnInit {
   employeeData !: any;
   formValue !: FormGroup;
 
-  constructor(private router:Router,private api:ApiService, public dialog: MatDialog) { }
+  constructor(private router:Router,private _sanitizer: DomSanitizer,private api:ApiService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this. getData();
@@ -33,6 +34,7 @@ export class ProfileComponent implements OnInit {
     .subscribe(res=>{
       this.employeeData = res;
       console.log(this.employeeData);
+      JSON. stringify(this.employeeData);
     })
     console.log(this.employeeData);
   }
@@ -44,5 +46,18 @@ export class ProfileComponent implements OnInit {
       this.getData();
     })
   }
+
+  onEdit(row: any){
+    this.formValue.controls['firstName'].setValue(row.firstName);
+    this.formValue.controls['lastNmae'].setValue(row.lastNmae);
+    this.formValue.controls['email'].setValue(row.email);
+    this.formValue.controls['mobile'].setValue(row.mobile);
+    this.formValue.controls['address'].setValue(row.address);
+    this.formValue.controls['tag'].setValue(row.tag);
+  }
+
+  getImg(image:any) {
+    return this._sanitizer.bypassSecurityTrustUrl(image);
+}
  
 }

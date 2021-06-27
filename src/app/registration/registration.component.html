@@ -71,70 +71,112 @@
     </div>
 </section> -->
 
-<section>
+
+<div class="row">
 
     <nav class="navbar navbar-light bg-primary">
         <div class="container-fluid">
             <h4 class="text-white">Register</h4>
             <div class="d-flex">
-                <button type="button" class="close clsbtn" data-dismiss="modal" aria-label="Close"  (click)=" Cancel()">
+                <button type="button" class="close clsbtn" data-dismiss="modal" aria-label="Close"
+                    (click)=" Cancel()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </div>
     </nav><br>
 
-    <form [formGroup]="formValue">
-        <div class="row">
-          <div class="col">
-            <input type="text" formControlName="firstName" class="form-control" placeholder="First name">
-          </div>
-          <div class="col">
-            <input type="text" formControlName="lastName" class="form-control" placeholder="Last name">
-          </div>
-        </div><br>
-        <div class="form-group">
-            <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        </div><br>
-        <div>
-            <input class="form-control" formControlName="mobile" type="text" placeholder="(+91) 9876543210">
-        </div><br>
-        <div>
-            <select class="form-control mdb-select md-form">
-                <option value="" disabled selected>State</option>
-                <option value="1">Maharastra</option>
-                <option value="2">Karnataka</option>
-                <option value="3">Gujrat</option>
-                <option value="4">Goa</option>
-                <option value="5">Tamilnadu</option>
-            </select>
-        </div><br>
-        <div>
-            <select class="form-control">
-                <option value="" disabled selected>Country</option>
-                <option value="1">India</option>
-                <option value="2">USA</option>
-                <option value="3">UK</option>
-                <option value="4">China</option>
-                <option value="5">Austrilia</option>
-            </select>
-        </div><br>
-        <div>
-            <input class="form-control" formControlName="address" type="text" placeholder="Address">
-        </div><br>
-        <div>
-            <input class="form-control" formControlName="tag" type="text" placeholder="Tag">
-        </div><br>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">subscribe to newsletter</label>
-        </div>
-        <div class="btns">
-            <button type="button" id="cancel" class="btn btn-secondary" data-dismiss="modal" (click)="Cancel()" style="width: 80px;">Close</button>&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" (click)="postRegistrion()" > Submit</button>
-        </div>
-      </form>
-</section>
+    <div class="col col-md-3">
+        <img class="pic rounded-circle" [src]="getImg(urlLink)" >
+        <input type="file" (change)="selectFile($event)">
+    </div>
+
+    <div class="col col-md-9">
+        <section>
+            <form [formGroup]="profileForm" (ngSubmit)="postRegistrion()" style="margin-top: 20px;">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" formControlName="firstName" class="form-control" placeholder="First name" required>
+                        <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
+                            <div *ngIf="firstName?.errors?.required" class="valid">Name is required.</div>
+                        </div>
+                     </div>
+
+                    <div class="col">
+                        <input type="text" formControlName="lastName" class="form-control" placeholder="Last name">
+                        <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
+                            <div *ngIf="lastName?.errors?.required" class="valid">Last Name is required.</div>
+                        </div>
+                    </div>
+                    
+                </div><br>
+                <div class="form-group">
+                    <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" placeholder="Enter email">
+                    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+                        <div *ngIf="email?.errors?.required" class="valid">Email is required.</div>
+                        <div *ngIf="email?.errors?.email" class="valid">Email is required.</div>
+                    </div>
+                </div><br>
+
+                <div>
+                    <input class="form-control" formControlName="mobile" type="text" placeholder="(+91) 9876543210">
+                    <div *ngIf="mobile?.invalid && (mobile?.dirty || mobile?.touched)">
+                        <div *ngIf="mobile?.errors?.required" class="valid">Number is required.</div>
+                        <!-- <div *ngIf="mobile?.errors?.minLength()">Number is required.</div> -->
+                    </div>
+                </div><br>
+
+                <!-- <div>
+                    <select class="form-control">
+                        <option value="" disabled selected>State</option>
+                        <option value="1">Maharastra</option>
+                        <option value="2">Karnataka</option>
+                        <option value="3">Gujrat</option>
+                        <option value="4">Goa</option>
+                        <option value="5">Tamilnadu</option>
+                    </select>
+                </div><br>
+                <div>
+                    <select class="form-control">
+                        <option value="" disabled selected>Country</option>
+                        <option value="1">India</option>
+                        <option value="2">USA</option>
+                        <option value="3">UK</option>
+                        <option value="4">China</option>
+                        <option value="5">Austrilia</option>
+                    </select>
+                </div><br> -->
+
+                <div>
+                    <input  formControlName="address" type="text" class="form-control" placeholder="Address">
+                    <div *ngIf="address?.invalid && (address?.dirty || address?.touched)">
+                        <div *ngIf="address?.errors?.required" class="valid">Address is required.</div>
+                    </div>
+                </div><br>
+                
+                <div>
+                    <input class="form-control" formControlName="tag" type="text" placeholder="Tag">
+                </div><br>
+
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">subscribe to newsletter</label>
+                </div>
+
+                <div class="btns">
+                    <button type="button" id="cancel" class="btn btn-secondary" data-dismiss="modal" (click)="Cancel()"
+                        style="width: 80px;">Close</button>&nbsp;&nbsp;
+                   
+                        <button type="submit" [disabled]="!this.profileForm.valid" class="btn btn-primary" >
+                            Submit</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+
 
 
 <!-- <section>
@@ -216,4 +258,3 @@
     </div>
     </div>
 </section> -->
-

@@ -7,4 +7,5 @@ export class RegistrationModel{
     mobile: string = "";
     address: string = "";
     tag: string = "";
+    img: string = "";
 }
