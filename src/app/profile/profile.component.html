@@ -3,7 +3,8 @@
     <div>
         <h3 style="color: rgb(101, 101, 216); margin-top: 20px;">Profile</h3>
     </div>
-    <table class="table">
+
+    <!-- <table class="table">
         <thead>
           <tr>
             <th scope="col">Id</th>
@@ -15,7 +16,7 @@
             <th scope="col">Address</th>
             <th scope="col">Tag</th>
             <th scope="col">Action</th>
-          </tr>
+          </tr>         
         </thead>
         <tbody>
           <tr *ngFor="let data of employeeData">
@@ -34,9 +35,30 @@
             </td>
           </tr>
         </tbody>
-      </table>
-<!-- 
-      <div >
-        <p>{{firstname}}</p>
-      </div> -->
+      </table> -->
+
+    <div class="container">
+
+      <div class="row" *ngIf="userdata">
+        <div class="col-md-4">
+          <div>
+            <img class="pic rounded-circle" [src]="getImg(userdata.img)" style="width: 150px; height: 150px;">
+          </div>
+          <div>
+            <button (click)="editProfile(userdata)" class="btn btn-danger mx-3" style="margin: 15px;">Edit Profile</button>
+          </div>
+        </div>
+        <div class="col-md-8">
+
+          <p style="font-weight: 500;">
+            Hi I am {{userdata.firstname}} {{userdata.lastName}} and you can send your emails to <a href="https://mail.google.com">{{userdata.email}}</a>. 
+            Please reach out to me on my phone Number {{userdata.mobile}}. My Address is {{userdata.address}}.
+          </p>
+         
+        </div>
+      </div>
+
+    </div>
+        
+
 </div>

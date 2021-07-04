@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router} from "@angular/router";
+import { ActivatedRoute, Router} from "@angular/router";
 import {MatSliderModule} from '@angular/material/slider';
 import { MatDialogRef, MatDialog } from "@angular/material/dialog";
 import { RegistrationModel } from './registration.model';
 import { ApiService } from "../shared/api.service"
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DomSanitizer, } from '@angular/platform-browser';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Inject } from '@angular/core';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -26,9 +28,23 @@ export class RegistrationComponent implements OnInit {
   });
   registrationModelObj : RegistrationModel = new RegistrationModel();
 
-  constructor(private router:Router,private _sanitizer: DomSanitizer, private api:ApiService, public MatDialogRef: MatDialogRef<RegistrationComponent>, private slider:MatSliderModule, private matDialog: MatDialog) { }
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any,private router:Router,private dataRoute: ActivatedRoute,private _sanitizer: DomSanitizer, private api:ApiService, public MatDialogRef: MatDialogRef<RegistrationComponent>, private slider:MatSliderModule, private matDialog: MatDialog) { }
 
-  ngOnInit(): void {   
+  ngOnInit(): void { 
+    // console.log(this.dataRoute.snapshot.params['val']);
+    console.log(this.data);
+
+    if (this.data) {
+      this.profileForm.setValue({
+        firstName: this.data.dataKey.firstname,
+        lastName: this.data.dataKey.lastName,
+        email: this.data.dataKey.email,
+        mobile: this.data.dataKey.mobile,
+        address: this.data.dataKey.address,
+     });
+
+     this.urlLink = this.data.dataKey.img;
+    }
   }
 
   Cancel() {
@@ -36,7 +52,36 @@ export class RegistrationComponent implements OnInit {
   }
 
   postRegistrion(){
-    this.registrationModelObj.firstname = this.profileForm.value.firstName;
+    if (this.data) {
+      this.registrationModelObj.firstname = this.profileForm.value.firstName;
+    this.registrationModelObj.lastName = this.profileForm.value.lastName;
+    this.registrationModelObj.email = this.profileForm.value.email;
+    this.registrationModelObj.mobile = this.profileForm.value.mobile;
+    this.registrationModelObj.address = this.profileForm.value.address;
+    // this.registrationModelObj.tag = this.formValue.value.tag;
+    this.registrationModelObj.img = this.urlLink;
+
+    this.api.updateRegisterData(this.registrationModelObj, this.data.dataKey.id)
+    .subscribe(res=>{
+      console.log(res);
+      alert("Registration Data Added Successfully");
+      let ref = document.getElementById("cancel")
+      ref?.click(); 
+      this.profileForm.reset();
+      location.reload();
+      // this.router.navigate(['/profile']).then( (e) => {
+      //   if (e) {
+      //     console.log("Navigation is successful!");
+      //   } else {
+      //     console.log("Navigation has failed!");
+      //   }
+      // });
+    },
+    err=>{
+      alert("Something Went Wrong")
+    })
+    } else {
+      this.registrationModelObj.firstname = this.profileForm.value.firstName;
     this.registrationModelObj.lastName = this.profileForm.value.lastName;
     this.registrationModelObj.email = this.profileForm.value.email;
     this.registrationModelObj.mobile = this.profileForm.value.mobile;
@@ -62,8 +107,7 @@ export class RegistrationComponent implements OnInit {
     err=>{
       alert("Something Went Wrong")
     })
-
-    
+    }
   }
 
   selectFile(event:any){
@@ -87,4 +131,22 @@ export class RegistrationComponent implements OnInit {
   getImg(image:any) {
     return this._sanitizer.bypassSecurityTrustUrl(image);
 }
+// updateData(){
+//   this.registrationModelObj.firstname = this.profileForm.value.firstName;
+//   this.registrationModelObj.lastName = this.profileForm.value.lastName;
+//   this.registrationModelObj.email = this.profileForm.value.email;
+//   this.registrationModelObj.mobile = this.profileForm.value.mobile;
+//   this.registrationModelObj.address = this.profileForm.value.address;
+//   // this.registrationModelObj.tag = this.formValue.value.tag;
+//   this.registrationModelObj.img = this.urlLink;
+//   this.api.updateRegisterData(this.registrationModelObj,this.registrationModelObj.id)
+//   .subscribe(res=>{
+//     alert("Updated Successfully");
+//     let ref = document.getElementById("cancel")
+//     ref?.click(); 
+//     this.profileForm.reset();
+//   })
+// }
 }
+
+
